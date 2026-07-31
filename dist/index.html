@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mercedes-Benz Luxury Vehicles & CI/CD Prototype Environment</title>
+  <meta name="description" content="Interactive Mercedes-Benz luxury supercar and electric showcase prototype designed for CI/CD continuous integration and deployment testing.">
+  <script type="module" crossorigin src="/assets/index-OW5k5_qc.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-DpdKZ5yh.css">
+</head>
+<body>
+
+  <!-- CI/CD Status HUD Bar -->
+  <div class="cicd-badge-bar" id="cicd-hud">
+    <div class="cicd-indicator">
+      <span class="status-dot" id="status-dot"></span>
+      <span style="font-weight: 700;">CI/CD PIPELINE STATUS:</span>
+      <span id="pipeline-status" class="pipeline-tag">HEALTHY / ALL TESTS PASSING</span>
+    </div>
+    <div class="pipeline-info">
+      <div>BUILD: <span class="pipeline-tag" id="build-num">#284-PROD</span></div>
+      <div>COVERAGE: <span class="pipeline-tag">100%</span></div>
+      <div>ENV: <span class="pipeline-tag" style="color: var(--accent-gold);">STAGING & PRODUCTION</span></div>
+    </div>
+  </div>
+
+  <!-- Main Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand-logo" id="logo-link">
+        <svg class="star-icon" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="4"/>
+          <polygon points="50,6 61,38 94,50 61,62 50,94 39,62 6,50 39,38" fill="currentColor"/>
+        </svg>
+        <span class="brand-title">Mercedes-Benz</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#models" class="nav-link active">Showcase</a>
+        <a href="#configurator" class="nav-link" id="nav-config-trigger">3D Configurator</a>
+        <a href="#cicd-guide" class="nav-link" id="nav-cicd-guide">CI/CD Guide</a>
+        <button class="btn-primary" id="btn-open-book-modal">Book Test Drive</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <span class="hero-badge">Mercedes-AMG GT 63 S</span>
+      <h1 class="hero-title">Experience <span>The Pinnacle</span> of Performance.</h1>
+      <p class="hero-desc">
+        Engineered with handcrafted AMG 4.0L V8 Biturbo power, active aerodynamics, and full CI/CD deployment pipeline validation for seamless digital innovation.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="hero-configure-btn">Configure GT 63 S</button>
+        <button class="btn-outline" id="hero-test-btn">Schedule Test Drive</button>
+      </div>
+    </div>
+
+    <div class="hero-image-wrapper">
+      <img src="/images/mercedes_amg_gt.jpg" alt="Mercedes-AMG GT 63 S Performance Coupe" id="hero-img">
+      <div class="specs-bar">
+        <div class="spec-item">
+          <div class="spec-val">3.1 s</div>
+          <div class="spec-lbl">0 - 60 MPH</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-val">630 HP</div>
+          <div class="spec-lbl">Horsepower</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-val">196 MPH</div>
+          <div class="spec-lbl">Top Speed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Models Catalog Section -->
+  <section class="catalog-section" id="models">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Mercedes Vehicles</h2>
+        <p style="color: var(--text-muted);">Explore high performance AMG, EQ electric, and Maybach luxury models.</p>
+      </div>
+
+      <div class="filter-bar">
+        <input type="text" id="search-input" class="search-input" placeholder="Search models, specs, series...">
+        <select id="series-select" class="filter-select">
+          <option value="all">All Series</option>
+          <option value="AMG Performance">AMG Performance</option>
+          <option value="EQ Electric">EQ Electric</option>
+          <option value="G-Class Offroad">G-Class Offroad</option>
+          <option value="Maybach Ultra-Luxury">Maybach Ultra-Luxury</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="cars-grid" id="cars-grid">
+      <!-- Injected dynamically via JS -->
+    </div>
+  </section>
+
+  <!-- Interactive Configurator Modal -->
+  <div class="modal-overlay" id="configurator-modal">
+    <div class="configurator-dialog">
+      <button class="modal-close-btn" id="close-config-modal">&times;</button>
+      
+      <div class="config-left">
+        <h3 id="modal-car-name" style="font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem;">Mercedes Vehicle</h3>
+        <p id="modal-car-series" style="color: var(--accent-cyan); font-size: 0.9rem; font-family: var(--font-tech); margin-bottom: 1rem;">SERIES</p>
+        
+        <div class="config-preview">
+          <img id="modal-car-image" src="" alt="Configured Vehicle Preview">
+        </div>
+
+        <div id="modal-specs-summary" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; background: rgba(255,255,255,0.03); padding: 1rem; border-radius: var(--radius-md); text-align: center;">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <div class="config-right">
+        <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">1. Select Exterior Paint</h4>
+        <div class="swatch-group" id="color-swatches"></div>
+
+        <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">2. Select Wheels</h4>
+        <div class="option-list" id="wheels-options"></div>
+
+        <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem;">3. AMG & Executive Packages</h4>
+        <div class="option-list" id="packages-options"></div>
+
+        <div class="config-summary-box">
+          <div class="summary-row">
+            <span>Base MSRP</span>
+            <span id="summary-base-price">$0</span>
+          </div>
+          <div class="summary-row">
+            <span>Options & Upgrades</span>
+            <span id="summary-options-price">$0</span>
+          </div>
+          <div class="summary-row summary-total">
+            <span>Total Configured Price</span>
+            <span id="summary-total-price">$0</span>
+          </div>
+          <div class="summary-row" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">
+            <span>Est. Lease Financing (48 mos):</span>
+            <span id="summary-monthly-price" style="color: var(--text-main); font-weight: 600;">$0 / mo</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+          <button class="btn-primary" style="flex: 1;" id="btn-save-config">Save Configuration</button>
+          <button class="btn-outline" id="btn-modal-test-drive">Book Test Drive</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Test Drive Booking Modal -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="configurator-dialog" style="max-width: 550px; grid-template-columns: 1fr;">
+      <button class="modal-close-btn" id="close-booking-modal">&times;</button>
+      
+      <div>
+        <h3 style="font-size: 1.6rem; font-weight: 700; margin-bottom: 0.5rem;">Book a Concierge Test Drive</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Experience Mercedes-Benz engineering firsthand. Complete the form to schedule a personalized session.
+        </p>
+
+        <form id="test-drive-form">
+          <div class="form-group">
+            <label class="form-label" for="booking-name">Full Name *</label>
+            <input type="text" id="booking-name" class="form-control" placeholder="e.g. Alexander Mercedes">
+            <div class="error-text" id="err-name"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="booking-email">Email Address *</label>
+            <input type="email" id="booking-email" class="form-control" placeholder="alexander@example.com">
+            <div class="error-text" id="err-email"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="booking-phone">Phone Number *</label>
+            <input type="tel" id="booking-phone" class="form-control" placeholder="(555) 000-0000">
+            <div class="error-text" id="err-phone"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="booking-model">Vehicle Model *</label>
+            <select id="booking-model" class="form-control">
+              <option value="">Select a Mercedes model...</option>
+            </select>
+            <div class="error-text" id="err-model"></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="booking-date">Preferred Date *</label>
+            <input type="date" id="booking-date" class="form-control">
+            <div class="error-text" id="err-date"></div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Reservation</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
+          <svg class="star-icon" viewBox="0 0 100 100" style="width: 24px; height: 24px;">
+            <polygon points="50,6 61,38 94,50 61,62 50,94 39,62 6,50 39,38" fill="currentColor"/>
+          </svg>
+          <span style="font-weight: 700; letter-spacing: 1px;">MERCEDES-BENZ CI/CD PROTOTYPE</span>
+        </div>
+        <p class="footer-text">Continuous Integration & Automated Deployment Testing Laboratory.</p>
+      </div>
+
+      <div class="footer-text">
+        Built for automated testing with Vitest, ESLint, GitHub Actions & Docker.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
